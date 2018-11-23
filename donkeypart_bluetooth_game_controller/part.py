@@ -107,6 +107,7 @@ class BluetoothGameController(BluetoothDevice):
         """
         try:
             event = next(self.device.read_loop())
+            btn_code = event.code
             btn = self.btn_map.get(event.code)
             val = event.value
             if event.type == ecodes.EV_ABS:
@@ -131,7 +132,7 @@ class BluetoothGameController(BluetoothDevice):
                 func(val)
 
             if self.verbose==True:
-                print("button: {}, value:{}".format(btn, val))
+                print("code: {}, button: {}, value:{}".format(btn_code, btn, val))
 
     def run_threaded(self, img_arr=None):
         return self.angle, self.throttle, self.drive_mode, self.recording
